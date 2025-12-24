@@ -37,7 +37,6 @@ references:
 author: 
   - Gabriel Binion
 version: 1.0
-date_last_updated: 2025-12-24
 interval: 2m
 from: now-24h
 
