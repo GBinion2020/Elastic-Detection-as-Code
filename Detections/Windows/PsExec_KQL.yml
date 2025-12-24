@@ -7,9 +7,9 @@ type: query
 language: kuery
 
 query: |
-  (process.name : ("psexec.exe" or "psexec64.exe" or "PsExec.exe" or "PsExec64.exe" or "PSEXEC.EXE" or "PSEXEC64.EXE") or 
-   process.command_line : ("*psexec*" or "*PsExec*" or "*PSEXEC*")) and 
-   process.command_line : ("* -p *" or "* -P*")
+  (process.name : "psexec.exe" or process.name : "psexec64.exe" or process.name : "PsExec.exe" or process.name : "PsExec64.exe" or process.name : "PSEXEC.EXE" or process.name : "PSEXEC64.EXE") and 
+   and 
+  (process.command_line : "* -p *" or process.command_line : "*-P*" or process.command_line : "*-p*")
 
 index: 
   - .ds-logs-endpoint.events.process-*
