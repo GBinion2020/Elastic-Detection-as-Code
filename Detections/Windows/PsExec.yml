@@ -20,10 +20,10 @@ query: |
     )
 
 index: 
-  - logs-endpoint.events.process-*
-  - logs-windows.sysmon-*
-  - logs-system.security-*
-  - logs-windows.powershell-*
+  - .ds-logs-endpoint.events.process-*
+  - .ds-logs-windows.sysmon-*
+  - .ds-logs-system.security-*
+  - .ds-logs-windows.powershell-*
 
 severity: high
 risk_score: 80
