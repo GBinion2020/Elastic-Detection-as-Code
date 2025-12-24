@@ -4,6 +4,7 @@ import json
 import glob
 import yaml
 import sys
+from datetime import date, datetime
 
 KIBANA_URL = os.getenv("KIBANA_URL")
 KIBANA_API_KEY = os.getenv("KIBANA_API_KEY")
@@ -18,20 +19,35 @@ headers = {
     "Content-Type": "application/json"
 }
 
-DETECTION_PATH = "detections/**/*.yml"                              #find all detection rules in detection folder
+DETECTION_PATH = "detections/**/*.yml"
 
-for rule_file in glob.glob(DETECTION_PATH, recursive=True):         #finds all detection rules
-    with open(rule_file, "r") as f:                                 #open each rule
-        rule = yaml.safe_load(f)                                    #load each rule
-        response = requests.post(                                   #deploy each rule  
-            f"{KIBANA_URL}/api/detection_engine/rules",             #Kibana API endpoint
-            headers=headers,
-            json=rule,
-            verify=False
-        )
-        
-        if response.status_code not in (200,201):                   #if deployment fails, print error
-            print(f"Failed to deploy rule {rule_file}: {response.status_code}")
-            sys.exit(1)
-        else:                                                       #if deployment is successful, print success
-            print(f"Successfully deployed rule {rule_file}")
+def normalize(obj):
+    if isinstance(obj, (date, datetime)):
+        return obj.isoformat()
+    if isinstance(obj, dict):
+        return {k: normalize(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [normalize(i) for i in obj]
+    return obj
+
+
+for rule_file in glob.glob(DETECTION_PATH, recursive=True):   #finds all detection rules
+    with open(rule_file, "r") as f:
+        rule = yaml.safe_load(f)
+
+    rule = normalize(rule)
+
+    response = requests.post(                                  
+        f"{KIBANA_URL}/api/detection_engine/rules",
+        headers=headers,
+        json=rule,
+        verify=False
+    )
+
+    if response.status_code not in (200, 201):
+        print(f"\nfailed to deploy rule: {rule_file}")
+        print(f"Status: {response.status_code}")
+        print(f"Response: {response.text}")
+        sys.exit(1)
+    else:
+        print(f"Successfully deployed: {rule_file}")
