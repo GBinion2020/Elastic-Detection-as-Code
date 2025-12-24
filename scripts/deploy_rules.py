@@ -39,17 +39,30 @@ for rule_file in glob.glob(DETECTION_PATH, recursive=True):   #finds all detecti
 
     rule = normalize(rule)
 
-    response = requests.put(                                  #send rule to kibana
+    # Try PUT (update) first
+    response = requests.put(
         f"{KIBANA_URL}/api/detection_engine/rules",
         headers=headers,
         json=rule,
         verify=False
     )
 
-    if response.status_code not in (200, 201):
-        print(f"\nfailed to deploy rule: {rule_file}")
-        print(f"Status: {response.status_code}")
-        print(f"Response: {response.text}")
-        sys.exit(1)
+    if response.status_code in (200, 201):
+        print(f"Successfully updated: {rule_file}")
     else:
-        print(f"Successfully deployed: {rule_file}")
+        # Fallback to POST (create) if PUT fails
+        print(f"PUT failed for {rule_file} (Status: {response.status_code}), trying POST...")
+        response = requests.post(
+            f"{KIBANA_URL}/api/detection_engine/rules",
+            headers=headers,
+            json=rule,
+            verify=False
+        )
+        
+        if response.status_code in (200, 201):
+            print(f"Successfully created: {rule_file}")
+        else:
+            print(f"\nFailed to deploy rule: {rule_file}")
+            print(f"Status: {response.status_code}")
+            print(f"Response: {response.text}")
+            sys.exit(1)
