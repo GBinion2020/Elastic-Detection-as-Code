@@ -4,6 +4,7 @@ import json
 import glob
 import yaml
 import sys
+from datetime import date, datetime
 
 KIBANA_URL = os.getenv("KIBANA_URL")
 KIBANA_API_KEY = os.getenv("KIBANA_API_KEY")
@@ -20,11 +21,25 @@ headers = {
 
 DETECTION_PATH = "detections/**/*.yml"
 
+
+
+def normalize(obj):
+    if isinstance(obj, (date, datetime)):
+        return obj.isoformat()
+    if isinstance(obj, dict):
+        return {k: normalize(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [normalize(i) for i in obj]
+    return obj
+
+
 for rule_file in glob.glob(DETECTION_PATH, recursive=True):   #finds all detection rules
     with open(rule_file, "r") as f:
         rule = yaml.safe_load(f)
 
-    response = requests.post(                                  
+    rule = normalize(rule)
+
+    response = requests.post(                                  #send rule to kibana
         f"{KIBANA_URL}/api/detection_engine/rules",
         headers=headers,
         json=rule,
