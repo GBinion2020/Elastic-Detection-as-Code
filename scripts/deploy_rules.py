@@ -21,23 +21,9 @@ headers = {
 
 DETECTION_PATH = "detections/**/*.yml"
 
-
-
-def normalize(obj):
-    if isinstance(obj, (date, datetime)):
-        return obj.isoformat()
-    if isinstance(obj, dict):
-        return {k: normalize(v) for k, v in obj.items()}
-    if isinstance(obj, list):
-        return [normalize(i) for i in obj]
-    return obj
-
-
 for rule_file in glob.glob(DETECTION_PATH, recursive=True):   #finds all detection rules
     with open(rule_file, "r") as f:
         rule = yaml.safe_load(f)
-
-    rule = normalize(rule)
 
     # Try PUT (update) first
     response = requests.put(
