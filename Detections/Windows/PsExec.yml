@@ -1,7 +1,7 @@
 rule_id: win_PsExec_P_Flag
-name: PseExec Used with -P flag.
+name: PsExec Used with -P flag.
 description: >
-    Detects use of PseExec with the -P flag, indicating a password is being used in cleartext within the command line.
+    Detects use of PsExec with the -P flag, indicating a password is being used in cleartext within the command line.
     This is a potential indicator of privilege escalation or lateral movement.
 type: eql
 language: eql 
@@ -9,15 +9,15 @@ language: eql
 query: |
   process where
     (
-      process.name in ("psexec.exe", "psexec64.exe", "Psexec.exe", "Pseexec64.exe") or
-      process.command_line =~ "*psexec*" or 
-      process.command_line =~ "*Psexec*" or
-      process.command_line =~ "*psexec.exe*" or 
-      process.command_line =~ "*Pseexec.exe*"
+      process.name in ("psexec.exe", "psexec64.exe", "Psexec.exe", "Psexec64.exe") or
+      stringContains(process.command_line, "psexec") or 
+      stringContains(process.command_line, "Psexec") or
+      stringContains(process.command_line, "psexec.exe") or 
+      stringContains(process.command_line, "Psexec.exe")
     ) and
     (
-    process.command_line =~ "* -P *" or 
-    process.command_line =~ "* -p *"
+    stringContains(process.command_line, " -P ") or 
+    stringContains(process.command_line, " -p ")
     )
 
 index: 
@@ -33,15 +33,14 @@ enabled: true
 
 tags: 
   - attack.lateral_movement
-  - tool.psexec and tool.psexec64
+  - tool.psexec
   - attack.T1021
 
 references: 
   - https://learn.microsoft.com/en-us/sysinternals/downloads/psexec
   - https://attack.mitre.org/techniques/T1021
 
-author: 
-  - Gabriel Binion
+author: Gabriel Binion
 version: 1.0
 interval: 2m
 from: now-24h
