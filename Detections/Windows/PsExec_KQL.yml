@@ -7,7 +7,7 @@ type: query
 language: kuery
 
 query: |
-  (process.name : "psexec.exe" or process.name : "psexec64.exe" or process.name : "PsExec.exe" or process.name : "PsExec64.exe" or process.name : "PSEXEC.EXE" or process.name : "PSEXEC64.EXE") and 
+  (process.name : "psexec.exe" or process.name : "psexec64.exe" or process.name : "PsExec.exe" or process.name : "PsExec64.exe" or process.name : "PSEXEC.EXE" or process.name : "PSEXEC64.EXE") 
    and 
   (process.command_line : "* -p *" or process.command_line : "*-P*" or process.command_line : "*-p*")
 
@@ -17,6 +17,7 @@ index:
   - .ds-logs-system.security-*
   - .ds-logs-windows.powershell-*
   - logs-*
+  - .ds-logs*
 
 severity: high
 risk_score: 80
