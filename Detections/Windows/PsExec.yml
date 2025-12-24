@@ -9,10 +9,10 @@ language: eql
 query: |
   process where
     (
-      process.name: ("psexec.exe" or "pseexec64.exe") or
-      process.command_line : "*psexec*"
+      process.name in ("psexec.exe", "pseexec64.exe") or
+      process.command_line =~ "*psexec*"
     ) and
-    process.command_line : "* -P *"
+    (process.command_line =~ "* -P *" or process.command_line =~ "* -p *")
 
 index: 
   - logs-endpoint.events.process-*
@@ -39,5 +39,4 @@ author:
 version: 1.0
 interval: 2m
 from: now-24h
-
 
