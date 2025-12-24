@@ -2,6 +2,8 @@ import os
 import requests
 import json
 import glob
+import yaml
+import sys
 
 KIBANA_URL = os.getenv("KIBANA_URL")
 KIBANA_API_KEY = os.getenv("KIBANA_API_KEY")
