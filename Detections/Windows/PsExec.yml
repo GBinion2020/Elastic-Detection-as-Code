@@ -9,15 +9,14 @@ language: eql
 query: |
   process where
     (
-      process.name in ("psexec.exe", "psexec64.exe", "Psexec.exe", "Psexec64.exe") or
+      process.name in ("psexec.exe", "psexec64.exe", "PsExec.exe", "PsExec64.exe", "PSEXEC.EXE", "PSEXEC64.EXE") or
       stringContains(process.command_line, "psexec") or 
-      stringContains(process.command_line, "Psexec") or
-      stringContains(process.command_line, "psexec.exe") or 
-      stringContains(process.command_line, "Psexec.exe")
+      stringContains(process.command_line, "PsExec") or
+      stringContains(process.command_line, "PSEXEC")
     ) and
     (
-    stringContains(process.command_line, " -P ") or 
-    stringContains(process.command_line, " -p ")
+    stringContains(process.command_line, " -p") or 
+    stringContains(process.command_line, " -P")
     )
 
 index: 
