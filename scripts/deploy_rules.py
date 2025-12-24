@@ -39,7 +39,7 @@ for rule_file in glob.glob(DETECTION_PATH, recursive=True):   #finds all detecti
 
     rule = normalize(rule)
 
-    response = requests.post(                                  #send rule to kibana
+    response = requests.put(                                  #send rule to kibana
         f"{KIBANA_URL}/api/detection_engine/rules",
         headers=headers,
         json=rule,
