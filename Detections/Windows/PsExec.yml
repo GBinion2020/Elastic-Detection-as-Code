@@ -1,0 +1,43 @@
+rule_id: win_PsExec_P_Flag
+name: PseExec Used with -P flag.
+description: >
+    Detects use of PseExec with the -P flag, indicating a password is being used in cleartext within the command line.
+    This is a potential indicator of privilege escalation or lateral movement.
+type: eql
+language: eql 
+
+query: |
+  process where
+    (
+      process.name: ("psexec.exe" or "pseexec64.exe") or
+      process.command_line : "*psexec*"
+    ) and
+    process.command_line : "* -P *"
+
+index: 
+  - logs-endpoint.events.process-*
+  - logs-windows.sysmon-*
+  - logs-system.security-*
+  - logs-windows.powershell-*
+
+severity: high
+risk_score: 80
+
+enabled: true
+
+tags: 
+  - attack.lateral_movement
+  - tool.psexec and tool.psexec64
+  - attack.T1021
+
+references: 
+  - https://learn.microsoft.com/en-us/sysinternals/downloads/psexec
+  - https://attack.mitre.org/techniques/T1021
+
+author: Gabriel Binion
+version: 1.0
+date_last_updated: 2025-12-24
+interval: 2m
+from: now-24h
+
+
