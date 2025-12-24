@@ -1,0 +1,38 @@
+rule_id: win_PsExec_P_Flag_KQL
+name: PsExec Used with -P flag (KQL)
+description: >
+    Detects use of PsExec with the -p or -P flag, indicating a password is being used in cleartext within the command line.
+    This version uses KQL (Kibana Query Language).
+type: query
+language: kuery
+
+query: |
+  (process.name : ("psexec.exe" or "psexec64.exe" or "PsExec.exe" or "PsExec64.exe" or "PSEXEC.EXE" or "PSEXEC64.EXE") or 
+   process.command_line : ("*psexec*" or "*PsExec*" or "*PSEXEC*")) and 
+  process.command_line : ("* -p*" or "* -P*")
+
+index: 
+  - .ds-logs-endpoint.events.process-*
+  - .ds-logs-windows.sysmon-*
+  - .ds-logs-system.security-*
+  - .ds-logs-windows.powershell-*
+
+severity: high
+risk_score: 80
+
+enabled: true
+
+tags: 
+  - attack.lateral_movement
+  - tool.psexec
+  - attack.T1021
+
+references: 
+  - https://learn.microsoft.com/en-us/sysinternals/downloads/psexec
+  - https://attack.mitre.org/techniques/T1021
+
+author: 
+  - Gabriel_binion
+version: 1.0
+interval: 2m
+from: now-24h
