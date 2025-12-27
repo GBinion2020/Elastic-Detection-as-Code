@@ -6,6 +6,12 @@
 - **Targets:** US Government, Fortune 500, SaaS providers
 - **Impact:** Long-term espionage via trusted software updates
 
+## Emulation & Detection Strategy
+
+We utilize **Atomic Red Team** to emulate the TTPs associated with the APT29 SolarWinds Supply Chain compromise (2020). While not an exact 1-to-1 replication, this simulation leverages the MITRE ATT&CK framework to model specific adversary behaviors.
+
+Each TTP listed below corresponds to a specific detection rule available in this directory. These detections are managed and deployed using Detection-as-Code (DaC) practices via GitHub Actions.
+
 ## ATT&CK Techniques Used
 
 | Phase | Technique |
