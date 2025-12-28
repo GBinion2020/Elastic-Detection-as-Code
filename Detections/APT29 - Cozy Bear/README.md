@@ -14,16 +14,15 @@ Each TTP listed below corresponds to a specific detection rule available in this
 
 ## ATT&CK Techniques Used
 
-| Phase | Technique |
-| :--- | :--- |
-| Initial Access | T1195 – Supply Chain Compromise |
-| Initial Access | T1566.002 – Phishing Links |
-| Execution | T1059.001 – PowerShell |
-| Defense Evasion | T1027 – Obfuscated Files or Information |
-| Credential Access | T1555.003 – Browser Credentials |
-| Discovery | T1082 – System Information Discovery (Hostname) <br> T1016 – System Network Configuration Discovery (Windows) |
-| Lateral Movement | T1570 – Lateral Tool Transfer |
-| Persistence | T1098 – Account Manipulation |
-| Defense Evasion | T1027 – Obfuscation via PowerShell |
-| Command and Control | T1071.001 – Web Protocols |
-| Exfiltration | T1041 – Exfiltration over C2 channel |
+| Phase | Technique | Detection Rule |
+| :--- | :--- | :--- |
+| Initial Access | T1195 – Supply Chain Compromise | - |
+| Initial Access | T1566.002 – Phishing Links | - |
+| Execution | T1059.001 – PowerShell | [APT29 PowerShell AutoIt Execution](Execution%20-%20T1059.001.yml) |
+| Defense Evasion | T1027 – Obfuscated Files or Information | [APT29 PowerShell Obfuscation](Defense%20Evasion%20-%20T1027.7.yml) |
+| Credential Access | T1555.002 - Security Account Manager | [APT29 Credential Exfiltration via GitHub](Credential%20Access%20-%20T1555.002.yml) |
+| Discovery | T1082 – System Information Discovery | [APT29 Discovery via WinPwn](Discovery%20-%20T1082.001.yml) |
+| Lateral Movement | T1570 – Lateral Tool Transfer | [APT29 Lateral Movement SMB SkipCert](Lateral%20Movement%20-%20T1570.001.yml) |
+| Persistence | T1098 – Account Manipulation | [APT29 Persistence Account Manipulation](Persistence%20-%20T1098.001.yml) |
+| Command and Control | T1071.001 – Web Protocols | [APT29 C2 Telnet Usage](Command%20and%20Control%20-%20T1071.001.yml) |
+| Exfiltration | T1041 – Exfiltration over C2 channel | [APT29 Exfiltration via Invoke-WebRequest](Exfiltration%20-%20T1041.001.yml) |

@@ -9,6 +9,15 @@ This project demonstrates a professional **Detection-as-Code (DaC)** workflow us
 
 ---
 
+## Featured Campaign: APT29 (SolarWinds)
+
+This repository now features a complete emulation and detection suite for **APT29 / Cozy Bear** (SolarWinds Supply Chain Compromise).
+- **Strategy**: Detections modeled after MITRE ATT&CK TTPs and verified using Atomic Red Team.
+- **Coverage**: Full kill-chain coverage including Initial Access, Execution, Persistence, Lateral Movement, and Exfiltration.
+- **Code**: [View Detections](Detections/APT29%20-%20Cozy%20Bear/README.md)
+
+---
+
 ## Core Pillars
 
 ### 1. Detection Engineering
@@ -84,7 +93,7 @@ graph LR
 ---
 
 ## Future Roadmap
-- [ ] Atomic-Red Team / Stratus-Red Team,  simulation Detections
+- [x] Atomic-Red Team / Stratus-Red Team,  simulation Detections
 - [ ] Integration with Sigma for cross-platform rule conversion.
 - [ ] Automated Detection as Code AI-Agent 
 
