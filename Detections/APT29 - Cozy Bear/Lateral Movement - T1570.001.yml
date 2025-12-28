@@ -32,5 +32,5 @@ references:
   - https://attack.mitre.org/techniques/T1570/
 
 author: 
- - Gabriel_binion
+  - Gabriel_binion
 version: 1.0

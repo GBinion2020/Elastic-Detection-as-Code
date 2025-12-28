@@ -30,5 +30,5 @@ references:
   - https://attack.mitre.org/techniques/T1071/001/
 
 author: 
- - Gabriel_binion
+  - Gabriel_binion
 version: 1.0
