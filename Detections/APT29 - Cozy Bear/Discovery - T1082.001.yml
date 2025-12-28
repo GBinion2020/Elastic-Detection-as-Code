@@ -29,5 +29,6 @@ tags:
 references:
   - https://attack.mitre.org/techniques/T1082/
 
-author: Gabriel_binion
+author: 
+ - Gabriel_binion
 version: 1.0

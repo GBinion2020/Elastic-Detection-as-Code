@@ -6,7 +6,9 @@ type: query
 language: kuery
 
 query: |
-  message: "New-smbmapping" and message:"Skipcertificatecheck" and (event.code: "4104" or process.args:"Powershell.exe" or process.args: "Cmd.exe")
+ (process.args:"Powershell.exe" or process.args: "Cmd.exe") or 
+ (event.code: "4104") and 
+ (message: "New-smbmapping" and message:"Skipcertificatecheck")
 
 index:
   - .ds-logs-endpoint.events.process-*
@@ -29,5 +31,6 @@ tags:
 references:
   - https://attack.mitre.org/techniques/T1570/
 
-author: Gabriel_binion
+author: 
+ - Gabriel_binion
 version: 1.0

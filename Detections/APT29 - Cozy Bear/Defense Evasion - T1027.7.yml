@@ -1,5 +1,5 @@
-rule_id: APT29_PowerShell_Obfuscation_CharType
-name: APT29 PowerShell Obfuscation - Char Type
+rule_id: APT29_PowerShell_Obfuscation
+name: APT29 PowerShell Obfuscation
 description: >
   Detects obfuscated PowerShell commands using char casting and type definitions, a technique observed in APT29 campaigns to evade detection.
 type: query
@@ -29,5 +29,6 @@ tags:
 references:
   - https://attack.mitre.org/techniques/T1027/
 
-author: Gabriel_binion
+author: 
+ - Gabriel_binion
 version: 1.0

@@ -31,5 +31,6 @@ tags:
 references:
   - https://attack.mitre.org/groups/G0016/
 
-author: Gabriel_binion
+author: 
+ Gabriel_binion
 version: 1.0
